@@ -1,0 +1,38 @@
+module objects {
+    export class Scene extends createjs.Container {
+        // PRIVATE INSTANCE VARIAVLES
+
+        // PUBLIC PROPERTIES
+        
+        // CONSTRUCTORS
+        constructor() {
+            super();
+        }
+        // PRIVATE METHODS
+
+        // PUBLIC METHODS
+        /**
+         * Initialize Components here
+         * @memberof Scene
+         */
+        public Start(): void {
+            
+        }
+
+        /**
+         * Update elemets in the scene
+         * @memberof Scene
+         */
+        public Update(): void {
+
+        }
+        
+        /**
+         * Add elemets in the Main methods
+         * @memberof Scene
+         */
+        public Main(): void {
+
+        }
+    }
+}

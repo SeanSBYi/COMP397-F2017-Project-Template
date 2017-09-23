@@ -1,0 +1,26 @@
+{
+  "name": "createjs-template",
+  "authors": [
+    "Sean (Sangbeom) Yi <isuryun@gmail.com>"
+  ],
+  "description": "CreateJS Project Template",
+  "main": "",
+  "keywords": [
+    "CreateJS"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "EaselJS": "^0.8.2",
+    "TweenJS": "^0.6.2",
+    "SoundJS": "^0.6.2",
+    "PreloadJS": "^0.6.2"
+  }
+}
