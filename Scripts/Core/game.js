@@ -6,7 +6,11 @@
     var assetManifest = [
         { id: "backButton", src: "../../Assets/images/backButton.png" },
         { id: "nextButton", src: "../../Assets/images/nextButton.png" },
-        { id: "startButton", src: "../../Assets/images/startButton.png" }
+        { id: "startButton", src: "../../Assets/images/startButton.png" },
+        { id: "plane", src: "../../Assets/images/plane.png" },
+        { id: "island", src: "../../Assets/images/island.png" },
+        { id: "cloud", src: "../../Assets/images/cloud.png" },
+        { id: "ocean", src: "../../Assets/images/ocean.gif" }
     ];
     var currentScene;
     var currentState;

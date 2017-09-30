@@ -24,27 +24,16 @@ var scenes;
         // PRIVATE METHODS
         // PUBLIC METHODS
         Play.prototype.Start = function () {
-            this._playLabel = new objects.Label("Game Playing", "40px", "Consolas", "#000000", 320, 240, true);
-            this._backButton = new objects.Button(this._assetManager, "backButton", 100, 340, true);
-            this._nextButton = new objects.Button(this._assetManager, "nextButton", 540, 340, true);
+            this._plane = new objects.Plane(this._assetManager);
             this.Main();
         };
         Play.prototype.Update = function () {
+            this._plane.Update();
+            //console.log(this.parent.stage.mouseX);
             return this._currentScene;
         };
         Play.prototype.Main = function () {
-            var _this = this;
-            this.addChild(this._playLabel);
-            this.addChild(this._backButton);
-            this.addChild(this._nextButton);
-            this._backButton.on("click", function () {
-                _this._currentScene = config.START;
-                _this.removeAllChildren();
-            });
-            this._nextButton.on("click", function () {
-                _this._currentScene = config.END;
-                _this.removeAllChildren();
-            });
+            this.addChild(this._plane);
         };
         return Play;
     }(objects.Scene));
