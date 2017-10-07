@@ -25,15 +25,52 @@ var scenes;
         // PUBLIC METHODS
         Play.prototype.Start = function () {
             this._plane = new objects.Plane(this._assetManager);
+            this._ocean = new objects.Ocean(this._assetManager);
+            this._island = new objects.Island(this._assetManager);
+            this._cloudNum = 3;
+            this._clouds = new Array();
+            this._lives = 5;
+            this._score = 0;
+            this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "Consolas", "#FFFF00", 10, 10, false);
+            this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "Consolas", "#FFFF00", 350, 10, false);
             this.Main();
         };
         Play.prototype.Update = function () {
+            var _this = this;
             this._plane.Update();
-            //console.log(this.parent.stage.mouseX);
+            this._ocean.Update();
+            this._island.Update();
+            this._checkCollision(this._island);
+            this._clouds.forEach(function (cloud) {
+                cloud.Update();
+                _this._checkCollision(cloud);
+            });
             return this._currentScene;
         };
         Play.prototype.Main = function () {
+            this.addChild(this._ocean);
+            this.addChild(this._island);
             this.addChild(this._plane);
+            for (var count = 0; count < this._cloudNum; count++) {
+                this._clouds[count] = new objects.Cloud(this._assetManager);
+                this.addChild(this._clouds[count]);
+            }
+            this.addChild(this._livesLabel);
+            this.addChild(this._scoreLabel);
+        };
+        Play.prototype._checkCollision = function (other) {
+            var P1 = new createjs.Point(this._plane.x, this._plane.y);
+            var P2 = other.position;
+            // compare the distance between P1 and P2 is less than half the height of each object
+            if (Math.sqrt(Math.pow(P2.x - P1.x, 2) + Math.pow(P2.y - P1.y, 2)) < (this._plane.halfHeight + other.halfHeight)) {
+                if (!other.isColliding) {
+                    console.log("Collision with " + other.name);
+                    other.isColliding = true;
+                }
+            }
+            else {
+                other.isColliding = false;
+            }
         };
         return Play;
     }(objects.Scene));

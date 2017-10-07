@@ -12,10 +12,11 @@ var objects;
 (function (objects) {
     var Plane = /** @class */ (function (_super) {
         __extends(Plane, _super);
+        // PRIVATE INSTANCE VARIABLES      
         // PUBLIC PROPERTIES
         // CONSTRUCTORS
         function Plane(assetManager) {
-            var _this = _super.call(this, assetManager.getResult("plane")) || this;
+            var _this = _super.call(this, assetManager, "plane") || this;
             _this.Start();
             return _this;
         }
@@ -44,7 +45,7 @@ var objects;
             this._checkBounds();
         };
         return Plane;
-    }(createjs.Bitmap));
+    }(objects.GameObject));
     objects.Plane = Plane;
 })(objects || (objects = {}));
 //# sourceMappingURL=plane.js.map

@@ -1,17 +1,12 @@
 module objects {
-    export class Plane extends createjs.Bitmap {
-        // PRIVATE INSTANCE VARIABLES
-        private width: number;
-        private height: number;
-        private halfWidth: number;
-        private halfHeight: number;
-        
+    export class Plane extends objects.GameObject {
+        // PRIVATE INSTANCE VARIABLES      
 
         // PUBLIC PROPERTIES
 
         // CONSTRUCTORS
         constructor(assetManager:createjs.LoadQueue) {
-            super(assetManager.getResult("plane"));
+            super(assetManager, "plane");
 
             this.Start();
         }
