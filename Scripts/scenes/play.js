@@ -24,6 +24,7 @@ var scenes;
         // PRIVATE METHODS
         // PUBLIC METHODS
         Play.prototype.Start = function () {
+            this._engineSound = createjs.Sound.play("engine", 0, 0, 0, -1, 0.20, 0);
             this._plane = new objects.Plane(this._assetManager);
             this._ocean = new objects.Ocean(this._assetManager);
             this._island = new objects.Island(this._assetManager);
@@ -65,6 +66,20 @@ var scenes;
             if (Math.sqrt(Math.pow(P2.x - P1.x, 2) + Math.pow(P2.y - P1.y, 2)) < (this._plane.halfHeight + other.halfHeight)) {
                 if (!other.isColliding) {
                     console.log("Collision with " + other.name);
+                    if (other.name == "island") {
+                        this._score += 10;
+                        this._scoreLabel.text = "Score: " + this._score;
+                        createjs.Sound.play("thunder", 0, 0, 0, 0, 0.5);
+                    }
+                    if (other.name == "cloud") {
+                        this._lives -= 1;
+                        if (this._lives <= 0) {
+                            this._currentScene = config.END;
+                            this._engineSound.stop();
+                            this.removeAllChildren();
+                        }
+                        this._livesLabel.text = "Live: " + this._lives;
+                    }
                     other.isColliding = true;
                 }
             }

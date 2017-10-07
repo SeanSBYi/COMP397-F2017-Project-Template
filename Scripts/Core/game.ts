@@ -5,12 +5,16 @@
   let assetManager:createjs.LoadQueue;
   let assetManifest = [
     {id: "backButton", src:"../../Assets/images/backButton.png"},
+    {id: "restartButton", src:"../../Assets/images/restartButton.png"},
     {id: "nextButton", src:"../../Assets/images/nextButton.png"},
     {id: "startButton", src:"../../Assets/images/startButton.png"},
     {id: "plane", src:"../../Assets/images/plane.png"},
     {id: "island", src:"../../Assets/images/island.png"},
     {id: "cloud", src:"../../Assets/images/cloud.png"},
-    {id: "ocean", src:"../../Assets/images/ocean.gif"}
+    {id: "ocean", src:"../../Assets/images/ocean.gif"},
+    {id: "engine", src:"../../Assets/audio/engine.ogg"},
+    {id: "thunder", src:"../../Assets/audio/thunder.ogg"},
+    {id: "yay", src:"../../Assets/audio/yay.ogg"},
   ];
 
   let currentScene: objects.Scene;

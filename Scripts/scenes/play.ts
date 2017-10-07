@@ -12,8 +12,10 @@ module scenes {
       private _livesLabel: objects.Label;
       private _scoreLabel: objects.Label;
       
-      private _lives;
-      private _score;
+      private _lives: number;
+      private _score: number;
+
+      private _engineSound: createjs.AbstractSoundInstance;
 
       // PUBLIC PROPERTIES
   
@@ -28,11 +30,13 @@ module scenes {
   
       // PUBLIC METHODS
       public Start():void {
+        this._engineSound = createjs.Sound.play("engine", 0, 0, 0, -1, 0.20, 0);
         this._plane = new objects.Plane(this._assetManager);
         this._ocean = new objects.Ocean(this._assetManager);
         this._island = new objects.Island(this._assetManager);
         this._cloudNum = 3;
         this._clouds = new Array<objects.Cloud>();
+        
         
         this._lives = 5;
         this._score = 0;
@@ -80,6 +84,21 @@ module scenes {
           this._plane.halfHeight + other.halfHeight)) {
             if(!other.isColliding){  
             console.log("Collision with " + other.name);
+            if(other.name == "island"){
+              this._score += 10;
+              this._scoreLabel.text = "Score: " + this._score;
+              createjs.Sound.play("thunder", 0, 0, 0, 0, 0.5);
+            }
+            if(other.name == "cloud") 
+            {
+              this._lives -= 1;
+              if(this._lives <= 0) {
+                this._currentScene = config.END;
+                this._engineSound.stop();
+                this.removeAllChildren();                
+              }
+              this._livesLabel.text = "Live: " + this._lives;
+            }
             other.isColliding = true;
             }
         }
