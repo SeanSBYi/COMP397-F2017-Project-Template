@@ -12,7 +12,6 @@ var objects;
 (function (objects) {
     var Plane = /** @class */ (function (_super) {
         __extends(Plane, _super);
-        // PUBLIC PROPERTIES
         // CONSTRUCTORS
         function Plane(assetManager) {
             var _this = _super.call(this, assetManager, "plane") || this;
@@ -40,10 +39,13 @@ var objects;
             this.y = 430;
             // SEAN Begin ---------------------------- 
             this._speed = 5;
-            // SEAN End ----------------------------
+            // SEAN End ------------------------------
+            this.bulletSpawn = new createjs.Point(this.y - 35, this.x);
         };
         Plane.prototype.Update = function () {
             //this.x = this.stage.mouseX;
+            this.bulletSpawn.x = this.x;
+            this.bulletSpawn.y = this.y - 35;
             this._checkBounds();
         };
         // SEAN Begin ----------------------------
@@ -56,6 +58,13 @@ var objects;
                 this.x -= this._speed;
             if (_inputData.right == true)
                 this.x += this._speed;
+        };
+        Plane.prototype.TriggerFire = function (_inputData) {
+            if (_inputData.button1 == true) {
+                _inputData.button1 = false;
+                return true;
+            }
+            return false;
         };
         return Plane;
     }(objects.GameObject));

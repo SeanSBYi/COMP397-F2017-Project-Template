@@ -11,6 +11,10 @@ module scenes {
   
       private _livesLabel: objects.Label;
       private _scoreLabel: objects.Label;
+
+      private _bullets: objects.Bullet[];
+      private _bulletNum: number;
+      private _bulletCounter: number;
       
       private _lives: number;
       private _score: number;
@@ -46,7 +50,11 @@ module scenes {
         this._ocean = new objects.Ocean(this._assetManager);
         this._island = new objects.Island(this._assetManager);
         this._cloudNum = 3;
-        this._clouds = new Array<objects.Cloud>();        
+        this._clouds = new Array<objects.Cloud>();
+        
+        this._bulletNum = 50;
+        this._bullets = new Array<objects.Bullet>();
+        this._bulletCounter = 0;
         
         this._lives = 5;
         this._score = 0;
@@ -66,6 +74,12 @@ module scenes {
 
         // SEAN Begin ----------------------------
         this._plane.UpdatePosition(this._inputData);
+        if( this._plane.TriggerFire(this._inputData) ) {
+          this._bulletFire();
+        }
+        this._bullets.forEach(bullet => {
+          bullet.Update();
+        });
         // SEAN End ------------------------------
         
         this._ocean.Update();
@@ -84,7 +98,12 @@ module scenes {
         this.addChild(this._ocean);
         this.addChild(this._island);
         this.addChild(this._plane);
-  
+        
+        for (let count = 0; count < this._bulletNum; count++) {
+          this._bullets[count] = new objects.Bullet(this._assetManager);
+          this.addChild(this._bullets[count]);
+        }
+        
         for (let count = 0; count < this._cloudNum; count++) {
           this._clouds[count] = new objects.Cloud(this._assetManager);
           this.addChild(this._clouds[count]);
@@ -93,6 +112,17 @@ module scenes {
         this.addChild(this._livesLabel);
         this.addChild(this._scoreLabel);
       }
+
+      private  _bulletFire():void {
+        this._bullets[this._bulletCounter].x = this._plane.bulletSpawn.x;
+        this._bullets[this._bulletCounter].y = this._plane.bulletSpawn.y;
+
+        this._bulletCounter++;
+        console.log(this._bulletCounter);
+        if(this._bulletCounter >= this._bulletNum -1) {
+          this._bulletCounter = 0;
+        }
+    }
 
       private _checkCollision(other:objects.GameObject) {
         let P1:createjs.Point = new createjs.Point(this._plane.x, this._plane.y);

@@ -34,6 +34,9 @@ var scenes;
             this._island = new objects.Island(this._assetManager);
             this._cloudNum = 3;
             this._clouds = new Array();
+            this._bulletNum = 50;
+            this._bullets = new Array();
+            this._bulletCounter = 0;
             this._lives = 5;
             this._score = 0;
             this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "Consolas", "#FFFF00", 10, 10, false);
@@ -48,6 +51,12 @@ var scenes;
             this._plane.Update();
             // SEAN Begin ----------------------------
             this._plane.UpdatePosition(this._inputData);
+            if (this._plane.TriggerFire(this._inputData)) {
+                this._bulletFire();
+            }
+            this._bullets.forEach(function (bullet) {
+                bullet.Update();
+            });
             // SEAN End ------------------------------
             this._ocean.Update();
             this._island.Update();
@@ -62,12 +71,25 @@ var scenes;
             this.addChild(this._ocean);
             this.addChild(this._island);
             this.addChild(this._plane);
+            for (var count = 0; count < this._bulletNum; count++) {
+                this._bullets[count] = new objects.Bullet(this._assetManager);
+                this.addChild(this._bullets[count]);
+            }
             for (var count = 0; count < this._cloudNum; count++) {
                 this._clouds[count] = new objects.Cloud(this._assetManager);
                 this.addChild(this._clouds[count]);
             }
             this.addChild(this._livesLabel);
             this.addChild(this._scoreLabel);
+        };
+        Play.prototype._bulletFire = function () {
+            this._bullets[this._bulletCounter].x = this._plane.bulletSpawn.x;
+            this._bullets[this._bulletCounter].y = this._plane.bulletSpawn.y;
+            this._bulletCounter++;
+            console.log(this._bulletCounter);
+            if (this._bulletCounter >= this._bulletNum - 1) {
+                this._bulletCounter = 0;
+            }
         };
         Play.prototype._checkCollision = function (other) {
             var P1 = new createjs.Point(this._plane.x, this._plane.y);

@@ -1,9 +1,10 @@
 module objects {
     export class Plane extends objects.GameObject {
-        // PRIVATE INSTANCE VARIABLES
+        // PRIVATE INSTANCE VARIABLES  
         private _speed: number;
 
         // PUBLIC PROPERTIES
+        bulletSpawn:createjs.Point;
 
         // CONSTRUCTORS
         constructor(assetManager:createjs.LoadQueue) {
@@ -35,11 +36,15 @@ module objects {
 
             // SEAN Begin ---------------------------- 
             this._speed = 5;
-            // SEAN End ----------------------------
+            // SEAN End ------------------------------
+
+            this.bulletSpawn = new createjs.Point(this.y - 35, this.x);            
         }
 
         public Update() {
             //this.x = this.stage.mouseX;
+            this.bulletSpawn.x = this.x;
+            this.bulletSpawn.y = this.y -35;
             this._checkBounds();
         }
 
@@ -52,7 +57,15 @@ module objects {
             if(_inputData.left == true)
                 this.x -= this._speed;
             if(_inputData.right == true)
-                this.x += this._speed;
+                this.x += this._speed;                
+        }
+
+        public TriggerFire(_inputData:core.InputData):boolean {
+            if(_inputData.button1 == true){
+                _inputData.button1 = false;
+                return true;
+            }
+            return false;
         }
         // SEAN End  ----------------------------
     }
