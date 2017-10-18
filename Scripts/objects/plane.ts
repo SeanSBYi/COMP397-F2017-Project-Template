@@ -1,6 +1,7 @@
 module objects {
     export class Plane extends objects.GameObject {
-        // PRIVATE INSTANCE VARIABLES      
+        // PRIVATE INSTANCE VARIABLES
+        private _speed: number;
 
         // PUBLIC PROPERTIES
 
@@ -31,11 +32,28 @@ module objects {
             this.regY = this.halfHeight;
             this.x = 320;
             this.y = 430;
+
+            // SEAN Begin ---------------------------- 
+            this._speed = 5;
+            // SEAN End ----------------------------
         }
 
         public Update() {
-            this.x = this.stage.mouseX;
+            //this.x = this.stage.mouseX;
             this._checkBounds();
         }
+
+        // SEAN Begin ----------------------------
+        public UpdatePosition(_inputData:core.InputData) {
+            if(_inputData.up == true)
+                this.y -= this._speed;
+            if(_inputData.down == true)
+                this.y += this._speed;
+            if(_inputData.left == true)
+                this.x -= this._speed;
+            if(_inputData.right == true)
+                this.x += this._speed;
+        }
+        // SEAN End  ----------------------------
     }
 }

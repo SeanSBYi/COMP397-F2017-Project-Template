@@ -9,6 +9,7 @@
     {id: "nextButton", src:"../../Assets/images/nextButton.png"},
     {id: "startButton", src:"../../Assets/images/startButton.png"},
     {id: "plane", src:"../../Assets/images/plane.png"},
+    {id: "bullet", src:"../../Assets/images/bullet.png"},
     {id: "island", src:"../../Assets/images/island.png"},
     {id: "cloud", src:"../../Assets/images/cloud.png"},
     {id: "ocean", src:"../../Assets/images/ocean.gif"},
@@ -17,7 +18,8 @@
     {id: "yay", src:"../../Assets/audio/yay.ogg"},
   ];
 
-  let currentScene: objects.Scene;
+
+  let currentScene:objects.Scene;
   let currentState:number;
 
   function Init() {

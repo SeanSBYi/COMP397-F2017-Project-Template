@@ -10,6 +10,7 @@ module objects {
 
       this.Start();
     }
+    
     // PRIVATE METHODS
     private _reset():void {
       this.y = -this.height;

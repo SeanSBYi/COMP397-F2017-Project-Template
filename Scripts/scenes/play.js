@@ -12,12 +12,16 @@ var scenes;
 (function (scenes) {
     var Play = /** @class */ (function (_super) {
         __extends(Play, _super);
+        // SEAN End ------------------------------
         // PUBLIC PROPERTIES
         // CONSTRUCTORS
         function Play(assetManager, currentScene) {
             var _this = _super.call(this) || this;
             _this._assetManager = assetManager;
             _this._currentScene = currentScene;
+            // SEAN Begin ----------------------------
+            _this._inputManager = new core.InputManager();
+            // SEAN End ------------------------------
             _this.Start();
             return _this;
         }
@@ -38,7 +42,13 @@ var scenes;
         };
         Play.prototype.Update = function () {
             var _this = this;
+            // SEAN Begin ----------------------------
+            this._inputData = this._inputManager.GetInput(window);
+            // SEAN End ------------------------------
             this._plane.Update();
+            // SEAN Begin ----------------------------
+            this._plane.UpdatePosition(this._inputData);
+            // SEAN End ------------------------------
             this._ocean.Update();
             this._island.Update();
             this._checkCollision(this._island);

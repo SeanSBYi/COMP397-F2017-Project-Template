@@ -17,6 +17,11 @@ module scenes {
 
       private _engineSound: createjs.AbstractSoundInstance;
 
+      // SEAN Begin ----------------------------
+      private _inputManager: core.InputManager;
+      private _inputData: core.InputData;
+      // SEAN End ------------------------------
+
       // PUBLIC PROPERTIES
   
       // CONSTRUCTORS
@@ -24,19 +29,24 @@ module scenes {
         super();
         this._assetManager = assetManager;
         this._currentScene = currentScene;
-        this.Start();
+
+        // SEAN Begin ----------------------------
+        this._inputManager = new core.InputManager();
+        // SEAN End ------------------------------
+        
+        this.Start();       
       }
       // PRIVATE METHODS
   
       // PUBLIC METHODS
       public Start():void {
+        
         this._engineSound = createjs.Sound.play("engine", 0, 0, 0, -1, 0.20, 0);
         this._plane = new objects.Plane(this._assetManager);
         this._ocean = new objects.Ocean(this._assetManager);
         this._island = new objects.Island(this._assetManager);
         this._cloudNum = 3;
-        this._clouds = new Array<objects.Cloud>();
-        
+        this._clouds = new Array<objects.Cloud>();        
         
         this._lives = 5;
         this._score = 0;
@@ -48,7 +58,16 @@ module scenes {
       }
   
       public Update():number {
+        // SEAN Begin ----------------------------
+        this._inputData = this._inputManager.GetInput(window);
+        // SEAN End ------------------------------
+
         this._plane.Update();
+
+        // SEAN Begin ----------------------------
+        this._plane.UpdatePosition(this._inputData);
+        // SEAN End ------------------------------
+        
         this._ocean.Update();
         this._island.Update();
         this._checkCollision(this._island);
