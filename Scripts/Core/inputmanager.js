@@ -31,14 +31,76 @@ var core;
         function InputManager() {
             var _this = this;
             this.axis = [];
+            // [MEMO] Required refactoring codes
             this.keyboardDown = function (event) {
                 event.preventDefault();
-                //console.log(ev);                
                 switch (event.keyCode) {
                     case config.KeyCode.KEYCODE_UP:
                         _this.inputdata.up = true;
-                        // [DEBUG] check key
-                        //console.log("UP");
+                        break;
+                    case config.KeyCode.KEYCODE_DOWN:
+                        _this.inputdata.down = true;
+                        break;
+                    case config.KeyCode.KEYCODE_LEFT:
+                        _this.inputdata.left = true;
+                        break;
+                    case config.KeyCode.KEYCODE_RIGHT:
+                        _this.inputdata.right = true;
+                        break;
+                    case config.KeyCode.KEYCODE_ENTER:
+                        _this.inputdata.start = true;
+                        break;
+                    case config.KeyCode.KEYCODE_SPACE:
+                        _this.inputdata.button1 = true;
+                        break;
+                    case config.KeyCode.KEYCODE_Z:
+                        _this.inputdata.button2 = true;
+                        break;
+                    case config.KeyCode.KEYCODE_X:
+                        _this.inputdata.button3 = true;
+                        break;
+                    case config.KeyCode.KEYCODE_C:
+                        _this.inputdata.button4 = true;
+                        break;
+                }
+                _this.SetInputData(_this.inputdata);
+            };
+            this.keyboardUp = function (event) {
+                switch (event.keyCode) {
+                    case config.KeyCode.KEYCODE_UP:
+                        _this.inputdata.up = false;
+                        break;
+                    case config.KeyCode.KEYCODE_DOWN:
+                        _this.inputdata.down = false;
+                        break;
+                    case config.KeyCode.KEYCODE_LEFT:
+                        _this.inputdata.left = false;
+                        break;
+                    case config.KeyCode.KEYCODE_RIGHT:
+                        _this.inputdata.right = false;
+                        break;
+                    case config.KeyCode.KEYCODE_ENTER:
+                        _this.inputdata.start = false;
+                        break;
+                    case config.KeyCode.KEYCODE_SPACE:
+                        _this.inputdata.button1 = false;
+                        break;
+                    case config.KeyCode.KEYCODE_Z:
+                        _this.inputdata.button2 = false;
+                        break;
+                    case config.KeyCode.KEYCODE_X:
+                        _this.inputdata.button3 = false;
+                        break;
+                    case config.KeyCode.KEYCODE_C:
+                        _this.inputdata.button4 = false;
+                        break;
+                }
+                _this.SetInputData(_this.inputdata);
+            };
+            this.GetKeyboardInput = function (event) {
+                switch (event.keyCode) {
+                    case config.KeyCode.KEYCODE_UP:
+                        _this.inputdata.up = true;
                         break;
                     case config.KeyCode.KEYCODE_DOWN:
                         _this.inputdata.down = true;
@@ -52,41 +114,19 @@ var core;
                 }
                 _this.SetInputData(_this.inputdata);
             };
-            this.keyboardUp = function (event) {
-                //console.log(ev);                
-                switch (event.keyCode) {
-                    case config.KeyCode.KEYCODE_UP:
-                        _this.inputdata.up = false;
-                        // [DEBUG] check key
-                        //console.log("UP");
-                        break;
-                    case config.KeyCode.KEYCODE_DOWN:
-                        _this.inputdata.down = false;
-                        break;
-                    case config.KeyCode.KEYCODE_LEFT:
-                        _this.inputdata.left = false;
-                        break;
-                    case config.KeyCode.KEYCODE_RIGHT:
-                        _this.inputdata.right = false;
-                        break;
-                }
-                _this.SetInputData(_this.inputdata);
-            };
             this.inputdata = new InputData();
+            //this.GetKeyboardInput = this.GetKeyboardInput.bind(this);
+            //window.addEventListener('keydown', (event)=>this.GetKeyboardInput(event));
             document.addEventListener('keydown', this.keyboardDown);
             document.addEventListener('keyup', this.keyboardUp);
         }
-        InputManager.prototype.GetInput = function (_window) {
+        InputManager.prototype.GetInput = function () {
             //this.inputdata.Init();
             // [TEST] Not recognized 1P is gamepad or keyboard
             this.GetGamepadInput();
-            // if(_window != null)
-            // {
-            //     _window.document.addEventListener('keydown', ev => this.GetKeyboardInput(ev));
-            // } 
-            //this.inputdata = this.GetKeyboardInput(_window);
             // [DEBUG] Log
             //console.log(this.inputdata);
+            console.log(this.inputdata.up, this.inputdata.down);
             return this.inputdata;
         };
         InputManager.prototype.GetGamepadInput = function () {
@@ -150,25 +190,11 @@ var core;
             } // end check gamepad
             this.SetInputData(this.inputdata);
         };
-        InputManager.prototype.GetKeyboardInput = function (ev) {
-            //console.log(ev);                
-            switch (ev.keyCode) {
-                case config.KeyCode.KEYCODE_UP:
-                    this.inputdata.up = true;
-                    // [DEBUG] check key
-                    console.log("UP");
-                    break;
-                case config.KeyCode.KEYCODE_DOWN:
-                    this.inputdata.down = true;
-                    break;
-                case config.KeyCode.KEYCODE_LEFT:
-                    this.inputdata.left = true;
-                    break;
-                case config.KeyCode.KEYCODE_RIGHT:
-                    this.inputdata.right = true;
-                    break;
-            }
-            this.SetInputData(this.inputdata);
+        InputManager.prototype.SetInputMovingData = function (_up, _down, _left, _right) {
+            this.inputdata.up = _up;
+            this.inputdata.down = _down;
+            this.inputdata.left = _left;
+            this.inputdata.right = _right;
         };
         InputManager.prototype.SetInputData = function (_inputData) {
             this.inputdata = _inputData;

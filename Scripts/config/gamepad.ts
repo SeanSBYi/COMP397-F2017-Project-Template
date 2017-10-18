@@ -19,10 +19,15 @@ module config {
     }
 
     export enum KeyCode {
+        KEYCODE_ENTER = 13,
         KEYCODE_LEFT = 37, 
 		KEYCODE_RIGHT = 39,
 		KEYCODE_UP = 38, 
-		KEYCODE_DOWN = 40
+        KEYCODE_DOWN = 40,
+        KEYCODE_SPACE = 32,
+        KEYCODE_Z = 90,
+        KEYCODE_X = 88,
+        KEYCODE_C = 67
     }
   }
   

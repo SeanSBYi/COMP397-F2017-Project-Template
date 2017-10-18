@@ -34,7 +34,7 @@ module scenes {
         this._inputManager = new core.InputManager();
         // SEAN End ------------------------------
         
-        this.Start();       
+        this.Start();
       }
       // PRIVATE METHODS
   
@@ -59,7 +59,7 @@ module scenes {
   
       public Update():number {
         // SEAN Begin ----------------------------
-        this._inputData = this._inputManager.GetInput(window);
+        this._inputData = this._inputManager.GetInput();
         // SEAN End ------------------------------
 
         this._plane.Update();

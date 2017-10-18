@@ -21,10 +21,15 @@ var config;
     })(GameInput = config.GameInput || (config.GameInput = {}));
     var KeyCode;
     (function (KeyCode) {
+        KeyCode[KeyCode["KEYCODE_ENTER"] = 13] = "KEYCODE_ENTER";
         KeyCode[KeyCode["KEYCODE_LEFT"] = 37] = "KEYCODE_LEFT";
         KeyCode[KeyCode["KEYCODE_RIGHT"] = 39] = "KEYCODE_RIGHT";
         KeyCode[KeyCode["KEYCODE_UP"] = 38] = "KEYCODE_UP";
         KeyCode[KeyCode["KEYCODE_DOWN"] = 40] = "KEYCODE_DOWN";
+        KeyCode[KeyCode["KEYCODE_SPACE"] = 32] = "KEYCODE_SPACE";
+        KeyCode[KeyCode["KEYCODE_Z"] = 90] = "KEYCODE_Z";
+        KeyCode[KeyCode["KEYCODE_X"] = 88] = "KEYCODE_X";
+        KeyCode[KeyCode["KEYCODE_C"] = 67] = "KEYCODE_C";
     })(KeyCode = config.KeyCode || (config.KeyCode = {}));
 })(config || (config = {}));
 //# sourceMappingURL=gamepad.js.map

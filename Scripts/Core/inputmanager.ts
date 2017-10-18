@@ -47,70 +47,88 @@ module core{
 
         constructor() {
             this.inputdata = new InputData();
-
+            //this.GetKeyboardInput = this.GetKeyboardInput.bind(this);
+            //window.addEventListener('keydown', (event)=>this.GetKeyboardInput(event));
             document.addEventListener('keydown', this.keyboardDown);
             document.addEventListener('keyup', this.keyboardUp);
         }
 
+        // [MEMO] Required refactoring codes
         public keyboardDown = (event: KeyboardEvent): void => {
             event.preventDefault();
-            
-            //console.log(ev);                
-            switch(event.keyCode) {
+            switch (event.keyCode){
                 case config.KeyCode.KEYCODE_UP:
-                    this.inputdata.up = true;
-                // [DEBUG] check key
-                //console.log("UP");
-                    break;
+                this.inputdata.up = true;
+                break;
                 case config.KeyCode.KEYCODE_DOWN:
-                    this.inputdata.down = true;
-                    break;
+                this.inputdata.down = true;
+                break;
                 case config.KeyCode.KEYCODE_LEFT:
-                    this.inputdata.left = true;
-                    break;
+                this.inputdata.left = true;
+                break;
                 case config.KeyCode.KEYCODE_RIGHT:
-                    this.inputdata.right = true;
-                    break;                
+                this.inputdata.right = true;
+                break;
+                case config.KeyCode.KEYCODE_ENTER:
+                this.inputdata.start = true;
+                break;
+                case config.KeyCode.KEYCODE_SPACE:
+                this.inputdata.button1 = true;
+                break;
+                case config.KeyCode.KEYCODE_Z:
+                this.inputdata.button2 = true;
+                break;
+                case config.KeyCode.KEYCODE_X:
+                this.inputdata.button3 = true;
+                break;
+                case config.KeyCode.KEYCODE_C:
+                this.inputdata.button4 = true;
+                break;
             }
-
             this.SetInputData(this.inputdata);
         }
-
         public keyboardUp = (event: KeyboardEvent): void => {
-            //console.log(ev);                
-            switch(event.keyCode) {
+            switch (event.keyCode){
                 case config.KeyCode.KEYCODE_UP:
-                    this.inputdata.up = false;
-                    // [DEBUG] check key
-                    //console.log("UP");
-                    break;
+                this.inputdata.up = false;
+                break;
                 case config.KeyCode.KEYCODE_DOWN:
-                    this.inputdata.down = false;
-                    break;
+                this.inputdata.down = false;
+                break;
                 case config.KeyCode.KEYCODE_LEFT:
-                    this.inputdata.left = false;
-                    break;
+                this.inputdata.left = false;
+                break;
                 case config.KeyCode.KEYCODE_RIGHT:
-                    this.inputdata.right = false;
-                    break;
+                this.inputdata.right = false;
+                break;
+                case config.KeyCode.KEYCODE_ENTER:
+                this.inputdata.start = false;
+                break;
+                case config.KeyCode.KEYCODE_SPACE:
+                this.inputdata.button1 = false;
+                break;
+                case config.KeyCode.KEYCODE_Z:
+                this.inputdata.button2 = false;
+                break;
+                case config.KeyCode.KEYCODE_X:
+                this.inputdata.button3 = false;
+                break;
+                case config.KeyCode.KEYCODE_C:
+                this.inputdata.button4 = false;
+                break;
             }
-    
             this.SetInputData(this.inputdata);
         }
 
-        public GetInput(_window: Window): InputData {
+        public GetInput(): InputData {
             //this.inputdata.Init();
 
             // [TEST] Not recognized 1P is gamepad or keyboard
-            this.GetGamepadInput();
-            // if(_window != null)
-            // {
-            //     _window.document.addEventListener('keydown', ev => this.GetKeyboardInput(ev));
-            // } 
-            //this.inputdata = this.GetKeyboardInput(_window);
+            this.GetGamepadInput();            
 
             // [DEBUG] Log
             //console.log(this.inputdata);
+            console.log(this.inputdata.up, this.inputdata.down);
 
             return this.inputdata;
         }
@@ -186,14 +204,11 @@ module core{
               this.SetInputData(this.inputdata);
             
         }
-
-        public GetKeyboardInput(ev:KeyboardEvent): void {
-            //console.log(ev);                
-            switch(ev.keyCode) {
+        
+        public GetKeyboardInput = (event: KeyboardEvent):void => {
+            switch (event.keyCode){
                 case config.KeyCode.KEYCODE_UP:
                 this.inputdata.up = true;
-                // [DEBUG] check key
-                console.log("UP");
                 break;
                 case config.KeyCode.KEYCODE_DOWN:
                 this.inputdata.down = true;
@@ -208,7 +223,14 @@ module core{
             this.SetInputData(this.inputdata);
         }
 
-        public SetInputData( _inputData:InputData): void {
+        public SetInputMovingData(_up: boolean, _down: boolean, _left: boolean, _right: boolean) {
+            this.inputdata.up = _up;
+            this.inputdata.down = _down;
+            this.inputdata.left = _left;
+            this.inputdata.right = _right;            
+        }
+
+        public SetInputData(_inputData:InputData): void {
             this.inputdata = _inputData;
         }
     }

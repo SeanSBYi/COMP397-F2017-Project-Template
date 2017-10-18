@@ -43,7 +43,7 @@ var scenes;
         Play.prototype.Update = function () {
             var _this = this;
             // SEAN Begin ----------------------------
-            this._inputData = this._inputManager.GetInput(window);
+            this._inputData = this._inputManager.GetInput();
             // SEAN End ------------------------------
             this._plane.Update();
             // SEAN Begin ----------------------------
